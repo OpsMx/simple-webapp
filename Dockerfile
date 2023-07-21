@@ -1,18 +1,15 @@
-# Use the official Python image as the base image
-FROM python:3.8
+# Use a base image with Node.js (e.g., Node.js 14)
+FROM node:14-alpine
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the requirements.txt file and install the dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Set the working directory
+WORKDIR /usr/src/app
 
 # Copy the application files to the container
-COPY app.py .
+COPY index.html .
+COPY server.js .
 
-# Expose port 8080 for Flask app
+# Expose port 8080 for web traffic
 EXPOSE 8080
 
-# Start the Flask application when the container starts
-CMD ["python", "app.py"]
+# Start the Node.js server
+CMD ["node", "server.js"]
